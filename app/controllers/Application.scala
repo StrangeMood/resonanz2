@@ -36,7 +36,7 @@ trait Secured {
       DB.withSession { implicit s =>
         Users.find(userId).firstOption match {
           case Some(user) => Action(request => f(user)(request))
-          case _ => Action(Redirect(routes.Application.index).withNewSession)
+          case _ => Action(onUnauthorized _)
         }
       }
     }
