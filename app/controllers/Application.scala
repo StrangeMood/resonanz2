@@ -13,7 +13,7 @@ object Application extends Controller with Secured {
       Ok(views.html.index(s"LOGGED IN AS: ${user.name}"))
   }
 
-  def changeIdentity = Action(Redirect(routes.Application.index).withNewSession)
+  def changeIdentity = Action(onUnauthorized _)
 
 }
 
