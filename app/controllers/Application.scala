@@ -27,7 +27,7 @@ trait Secured {
       implicit session =>
         val userId = Users.autoInc.insert(HaikuNames.name)
 
-        Results.Redirect(routes.Application.index).withSession("user_id" -> userId.toString)
+        Results.Redirect(routes.Application.index).withSession(request.session + ("user_id" -> userId.toString))
     }
   }
 
