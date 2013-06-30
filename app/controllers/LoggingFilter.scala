@@ -9,7 +9,10 @@ object LoggingFilter extends Filter {
     def logTime(result: PlainResult): Result = {
       val time = System.currentTimeMillis - start
 
-      Logger.info(s"${rh.method} ${rh.uri} took ${time}ms and returned ${result.header.status}")
+      if (!rh.path.startsWith("/assets")) {
+        Logger.info(s"${rh.method} ${rh.uri} took ${time}ms and returned ${result.header.status}")
+      }
+
       result.withHeaders("Request-Time" -> time.toString)
     }
 
