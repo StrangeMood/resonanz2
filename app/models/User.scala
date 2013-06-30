@@ -10,5 +10,13 @@ object Users extends Table[User]("users") {
 
   def * = id.? ~ name <> (User, User.unapply _)
 
-  def autoInc = id.? ~ name <> (User, User.unapply _) returning id
+  def autoInc = name returning id
+
+  val usersById = for {
+    id <- Parameters[Int]
+    u <- Users if u.id is id
+  } yield u
+
+  def find(id: Int) = usersById(id)
+  def find(id: String) = usersById(id.toInt)
 }
