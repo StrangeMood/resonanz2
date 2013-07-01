@@ -8,9 +8,9 @@ import play.api.Play.current
 
 object Application extends Controller with Secured {
 
-  def index = Authenticated { user =>
+  def index = Authenticated { implicit user =>
     request =>
-      Ok(views.html.index(s"LOGGED IN AS: ${user.name}"))
+      Ok(views.html.index("GREETINGS"))
   }
 
   def changeIdentity = Action(onUnauthorized _)
